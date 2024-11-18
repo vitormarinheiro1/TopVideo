@@ -17,11 +17,6 @@ if ($titulo === false) {
     exit();
 }
 
-// $sql = 'INSERT INTO videos (url, title) VALUES (?, ?)';
-// $statement = $pdo->prepare($sql);
-// $statement->bindValue(1, $url);
-// $statement->bindValue(2, $titulo);
-
 $repository = new VideoRepository($pdo);
 
 
