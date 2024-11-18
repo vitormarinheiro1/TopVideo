@@ -1,12 +1,16 @@
 <?php
 
 declare(strict_types=1);
-use Alura\Mvc\Controller\DeleteVideoController;
-use Alura\Mvc\Controller\EditVideoController;
-use Alura\Mvc\Controller\Error404Controller;
-use Alura\Mvc\Controller\NewVideoController;
-use Alura\Mvc\Controller\VideoFormController;
-use Alura\Mvc\Controller\VideoListController;
+
+use Alura\Mvc\Controller\{
+    DeleteVideoController,
+    EditVideoController,
+    Error404Controller,
+    NewVideoController,
+    VideoFormController,
+    VideoListController,
+};
+
 use Alura\Mvc\Repository\VideoRepository;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -35,4 +39,5 @@ if (!array_key_exists('PATH_INFO', $_SERVER) || $_SERVER['PATH_INFO'] === '/') {
 } else {
     $controller = new Error404Controller();
 }
+/** @var \Alura\Mvc\Controller\Controller $controller */
 $controller->processaRequisicao();
