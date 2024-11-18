@@ -53,11 +53,13 @@ class VideoRepository
      */
     public function all(): array
     {
-        return array_map(function (array $videoData) {
-            $video = new Video($videoData['url'], $videoData['title']);
-            $video->setId($videoData['id']);
-            return $video;
-        }, $this->pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC));
+        $videoList = $this->pdo
+            ->query('SELECT * FROM videos;')
+            ->fetchAll(PDO::FETCH_ASSOC);
+        return array_map(
+            $this->hydrateVideo(...),
+            $videoList
+        );
     }
 
     public function find(int $id)
