@@ -1,5 +1,8 @@
 <?php
 
+use Alura\Mvc\Entity\Video;
+use Alura\Mvc\Repository\VideoRepository;
+
 require "Connection.php";
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -29,6 +32,11 @@ $statement->bindValue(':url', $url);
 $statement->bindValue(':title', $titulo);
 $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
+$video = new Video($url, $titulo);
+$video->setId($id);
+
+$repository = new VideoRepository($pdo);
+$repository->update($video);
 
 if ($statement->execute() === false) {
     header('Location: /?sucesso=0');

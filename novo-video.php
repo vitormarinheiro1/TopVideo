@@ -1,5 +1,8 @@
 <?php
 
+use Alura\Mvc\Entity\Video;
+use Alura\Mvc\Repository\VideoRepository;
+
 require "Connection.php";
 
 $url = filter_input(INPUT_POST, 'url', FILTER_VALIDATE_URL);
@@ -14,11 +17,15 @@ if ($titulo === false) {
     exit();
 }
 
-$sql = 'INSERT INTO videos (url, title) VALUES (?, ?)';
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $url);
-$statement->bindValue(2, $titulo);
-if ($statement->execute() === false) {
+// $sql = 'INSERT INTO videos (url, title) VALUES (?, ?)';
+// $statement = $pdo->prepare($sql);
+// $statement->bindValue(1, $url);
+// $statement->bindValue(2, $titulo);
+
+$repository = new VideoRepository($pdo);
+
+
+if ($repository->add(new Video($url, $titulo)) === false) {
     header('Location: /?sucesso=0');
 } else {
     header('Location: /?sucesso=1');
